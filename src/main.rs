@@ -1,10 +1,19 @@
 #![cfg_attr(debug_assertions, allow(dead_code))]
 
 mod elf;
+mod i386;
 
 use std::path::Path;
+use i386::*;
 
 fn main() {
+    let op = Instr::ADC(Loc::Reg(Reg::D(DReg::EAX)), Val::Imm(1));
+    let rep = op.as_op();
+    println!("{:?}", op);
+    println!("{:?}", rep);
+}
+
+fn main1() {
     let path = Path::new("test");
     let blocks = vec![
         elf::DataBlock { data: "\0.shstrtab\0.text\0".as_bytes().to_vec(), align: 1 },
